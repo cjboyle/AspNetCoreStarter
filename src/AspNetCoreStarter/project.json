@@ -1,0 +1,12 @@
+{
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "Views",
+      "Areas/**/*.cshtml",
+      "Features/**/*.cshtml",
+      "appsettings.json",
+      "web.config"
+    ]
+  }
+}

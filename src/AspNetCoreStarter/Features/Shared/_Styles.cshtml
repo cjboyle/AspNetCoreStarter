@@ -1,0 +1,14 @@
+﻿@* Shared Stylesheet Imports *@
+
+<environment names="Development">
+    <link rel="stylesheet" type="text/css" href="~/assets/bulma/css/bulma.css" />
+</environment>
+<environment names="Staging,Production">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+          asp-fallback-href="~/assets/bulma/css/bulma.min.css"
+          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+</environment>
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" />
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="~/dist/app.css" />
