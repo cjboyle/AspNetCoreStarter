@@ -9,15 +9,31 @@ namespace AspNetCoreStarter.Infrastructure
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
-        {
-        }
-
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Award> Awards { get; set; }
         public DbSet<CastingCredit> CastingCredits { get; set; }
 
+
+        /// <summary>
+        /// Instantiates a database context with default options
+        /// </summary>
+        public ApplicationDbContext() : base()
+        {
+        }
+
+        /// <summary>
+        /// Instantiates a database context with the given options
+        /// </summary>
+        /// <param name="options"></param>
+        public ApplicationDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        /// <summary>
+        /// Customize the database model mappings
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,6 +51,10 @@ namespace AspNetCoreStarter.Infrastructure
             }
         }
 
+        /// <summary>
+        /// Customize the database context
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
