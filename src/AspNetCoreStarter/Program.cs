@@ -22,9 +22,20 @@ namespace AspNetCoreStarter
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .ConfigureAppConfiguration((host, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", false, true)
+                        .AddJsonFile($"appsettings.{host.HostingEnvironment.EnvironmentName}.json", true)
+                        // Add any other JSON settings files
+                        .AddUserSecrets(typeof(Startup).Assembly, true)
+                        .AddEnvironmentVariables();
+                }
+            );
+        }
 
 
 
@@ -67,20 +78,26 @@ namespace AspNetCoreStarter
 
             using (var scope = services.CreateScope())
             {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                // Uncomment for access to Identity services
+                //var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                //var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
                 if (args.Contains("dropdb") || args.Contains("resetdb"))
                 {
                     Console.WriteLine("Dropping the database");
-                    new ApplicationDbContext().Database.EnsureDeleted();
+                    db.Database.EnsureDeleted();
                 }
                 if (args.Contains("migratedb") || args.Contains("resetdb"))
                 {
                     Console.WriteLine("Migrating the database");
-                    new ApplicationDbContext().Database.Migrate();
+                    db.Database.Migrate();
                 }
                 if (args.Contains("seeddb"))
                 {
                     Console.WriteLine("Seeding the database");
-                    new ApplicationDbContext().Seed();
+                    db.Seed();
+                    //db.seed(userManager, roleManager);
                 }
             }
         }

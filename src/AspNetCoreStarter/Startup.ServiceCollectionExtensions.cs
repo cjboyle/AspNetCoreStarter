@@ -34,17 +34,19 @@ namespace AspNetCoreStarter
             return services;
         }
 
-        public static IServiceCollection AddCustomEntityFramework<TDbContext>(this IServiceCollection services, bool isForTestingOnly) where TDbContext : DbContext
+        public static IServiceCollection AddCustomEntityFramework<TDbContext>(this IServiceCollection services, bool isTestEnvironment = false) 
+            where TDbContext : DbContext
         {
-            services.AddDbContext<TDbContext>();
 
-            if (isForTestingOnly)
+            if (isTestEnvironment)
             {
+                services.AddDbContext<TDbContext>();
                 services.AddEntityFrameworkInMemoryDatabase();
             }
             else
             {
                 // Add a persistent database such as SQL Server, LocalDB, PostgreSQL, etc.
+                var connectionString = Startup.DefaultConnectionString;
             }
 
             return services;

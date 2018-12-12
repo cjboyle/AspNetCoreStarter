@@ -20,24 +20,27 @@ namespace AspNetCoreStarter
 {
     public partial class Startup
     {
+        /// <summary>
+        /// Initializes the web host startup environment.
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            IsForTestingOnly = false;
+            IsTestEnvironment = false;
         }
 
-        public IConfiguration Configuration { get; }
-
-        public bool IsForTestingOnly { get; set; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup custom MVC options
             services.AddCustomMvc();
 
             // Setup database access with Entity Framework
-            services.AddCustomEntityFramework<ApplicationDbContext>(IsForTestingOnly);
+            services.AddCustomEntityFramework<ApplicationDbContext>(IsTestEnvironment);
 
             // Enable MediatR request handler pattern
             services.AddMediatR(typeof(Startup));
@@ -64,7 +67,11 @@ namespace AspNetCoreStarter
             //services.AddSignalR()
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -99,6 +106,21 @@ namespace AspNetCoreStarter
             //app.UseAuthentication(); // Uncomment if setting up authentication
         }
 
-        public static Startup GetTestStartup(IConfiguration config) => new Startup(config) { IsForTestingOnly = true };
+        /// <summary>
+        /// Gets the external app configuration.
+        /// </summary>
+        public static IConfiguration Configuration { get; protected set; }
+
+        /// <summary>
+        /// Gets the default database connection string.
+        /// Shorthand for 'Startup.Configuration.GetConnectionString("DefaultConnection")'.
+        /// </summary>
+        public static string DefaultConnectionString => Configuration.GetConnectionString("DefaultConnection");
+
+        /// <summary>
+        /// Returns true if the web host is being run in a test environment.
+        /// (i.e. TestStartup.cs in the tests project)
+        /// </summary>
+        public static bool IsTestEnvironment { get; protected set; }
     }
 }
