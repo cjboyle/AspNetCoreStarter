@@ -25,8 +25,8 @@ namespace AspNetCoreStarter.Tests
             _host = A.Fake<IHostingEnvironment>();
             A.CallTo(() => _host.ContentRootPath).Returns(Directory.GetCurrentDirectory());
 
-            var startup = Startup.GetTestStartup(new ConfigurationBuilder().Build());
-            _configuration = startup.Configuration;
+            var startup = new TestStartup(new ConfigurationBuilder().Build());
+            _configuration = Startup.Configuration;
 
             var services = new ServiceCollection();
             startup.ConfigureServices(services);

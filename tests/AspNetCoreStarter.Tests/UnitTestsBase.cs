@@ -5,7 +5,14 @@ using Xunit;
 
 namespace AspNetCoreStarter.Tests
 {
-    public abstract class UnitTestsBase<TFixture> : IClassFixture<FixtureBase>
+    public abstract class UnitTestsBase<TFixture> : IClassFixture<TFixture>
+        where TFixture : class, IFixture
     {
+        public TFixture Fixture { get; }
+
+        public UnitTestsBase(TFixture fixture)
+        {
+            Fixture = fixture;
+        }
     }
 }

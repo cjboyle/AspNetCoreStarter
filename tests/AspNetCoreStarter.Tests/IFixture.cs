@@ -4,8 +4,7 @@ using System.Text;
 
 namespace AspNetCoreStarter.Tests
 {
-    public abstract class FixtureBase<TModel> : IFixture
+    public interface IFixture
     {
-        public abstract TModel Model { get; set; }
     }
 }
