@@ -60,7 +60,8 @@ namespace AspNetCoreStarter.Features.Movie
             [StringLength(50, MinimumLength = 1, ErrorMessage = "{0} must be between 1 and 50 characters")]
             public string Title { get; set; }
 
-            [YearToDate(earliest: 1878, ErrorMessage = "No movies were produced in that year")]
+            //[DateTimeRangeUntilNow(year: 1878, ErrorMessage = "No movies were produced in that year")]
+            [DataType(DataType.DateTime)]
             public int Year { get; set; }
 
             [Range(10, 240)]

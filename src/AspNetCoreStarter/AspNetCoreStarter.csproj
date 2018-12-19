@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\components\" />
     <Folder Include="Features\Identity\" />
+    <Folder Include="Infrastructure\ValidationAttributes\" />
   </ItemGroup>
 
 
