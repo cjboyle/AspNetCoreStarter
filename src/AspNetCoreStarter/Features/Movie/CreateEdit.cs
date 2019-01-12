@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AspNetCoreStarter.Infrastructure;
-using AspNetCoreStarter.Infrastructure.ValidationAttributes;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -62,7 +61,8 @@ namespace AspNetCoreStarter.Features.Movie
 
             //[DateTimeRangeUntilNow(year: 1878, ErrorMessage = "No movies were produced in that year")]
             [DataType(DataType.DateTime)]
-            public int Year { get; set; }
+            [Display(Name = "Release Date")]
+            public DateTime ReleaseDate { get; set; }
 
             [Range(10, 240)]
             [Display(Name = "Runtime (minutes)")]
