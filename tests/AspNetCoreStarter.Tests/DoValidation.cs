@@ -5,39 +5,18 @@ using System.Text;
 
 namespace AspNetCoreStarter.Tests
 {
-    public static class DoValidation
+    public static class ModelValidator
     {
         /// <summary>
-        /// Method used to validate an object and return an error messages associated with it
+        /// Validates the model and returns the list of results
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<ValidationResult> On(object model)
+        public static List<ValidationResult> Validate(object model)
         {
             var results = new List<ValidationResult>();
 
-            // Validate the model based on it's properties' validation attributes
-            var context = new ValidationContext(model);
-            Validator.TryValidateObject(model, context, results, true);
-
-            // Validate the model based on it's custom validation implementation
-            if (model is IValidatableObject)
-                results.AddRange((model as IValidatableObject).Validate(context));
-
-            return results;
-        }
-
-
-        /// <summary>
-        /// Method used to validate an object and return an error messages associated with it
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public static List<ValidationResult> On<TModel>(TModel model)
-        {
-            var results = new List<ValidationResult>();
-
-            // Validate the model based on it's properties' validation attributes
+            // Validate the model based on it's validation attributes
             var context = new ValidationContext(model);
             Validator.TryValidateObject(model, context, results, true);
 
