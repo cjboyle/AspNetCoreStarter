@@ -10,7 +10,7 @@ namespace AspNetCoreStarter
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCustomMvc(this IServiceCollection services)
+        public static IServiceCollection AddCustomMvc(this IServiceCollection services, CompatibilityVersion target)
         {
             services.AddMvc(mvcOptions =>
                 {
@@ -29,7 +29,7 @@ namespace AspNetCoreStarter
                     razorOptions.ViewLocationFormats.Add("/Features/Shared/{0}.cshtml"); // e.g. Features/Shared/Error.cshtml
                     razorOptions.ViewLocationExpanders.Add(new FeatureViewLocationExpander());
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(target);
 
             return services;
         }

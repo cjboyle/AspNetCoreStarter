@@ -17,11 +17,11 @@ namespace AspNetCoreStarter.Tests
                 if (_dbContext is null)
                 {
                     var options = new DbContextOptionsBuilder()
-                        .UseInMemoryDatabase($"xunit_test_database_for_{typeof(TModel).Name}_Fixture")
+                        .UseInMemoryDatabase($"xunit_db_fixture_for_{typeof(TModel).Name}")
                         .Options;
 
                     _dbContext = new ApplicationDbContext(options);
-                    _dbContext.Database.BeginTransactionAsync();
+                    //_dbContext.Database.BeginTransactionAsync();
                 }
                 return _dbContext;
             }
@@ -29,8 +29,8 @@ namespace AspNetCoreStarter.Tests
 
         public void Dispose()
         {
-            _dbContext.Database.RollbackTransaction();
-            _dbContext.Dispose();
+            //DbContext.Database.RollbackTransaction();
+            DbContext.Dispose();
             _dbContext = null;
         }
     }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace AspNetCoreStarter
 {
-    internal class FeatureControllerModelConvention : IControllerModelConvention
+    public class FeatureControllerModelConvention : IControllerModelConvention
     {
         public void Apply(ControllerModel controller)
         {

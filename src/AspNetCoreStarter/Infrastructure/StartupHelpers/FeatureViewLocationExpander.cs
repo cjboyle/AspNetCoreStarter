@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace AspNetCoreStarter
 {
-    internal class FeatureViewLocationExpander : IViewLocationExpander
+    public class FeatureViewLocationExpander : IViewLocationExpander
     {
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
         {

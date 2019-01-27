@@ -37,7 +37,7 @@ namespace AspNetCoreStarter
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup custom MVC options
-            services.AddCustomMvc();
+            services.AddCustomMvc(target: CompatibilityVersion.Version_2_2);
 
             // Setup database access with Entity Framework
             services.AddCustomEntityFramework<ApplicationDbContext>(IsTestEnvironment);
