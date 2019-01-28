@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace AspNetCoreStarter
+namespace AspNetCoreStarter.Infrastructure.StartupUtils
 {
     public class FeatureViewLocationExpander : IViewLocationExpander
     {

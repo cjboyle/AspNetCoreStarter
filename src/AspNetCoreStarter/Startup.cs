@@ -15,6 +15,7 @@ using AspNetCoreStarter.Infrastructure;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using System.IO;
 using AutoMapper;
+using AspNetCoreStarter.Infrastructure.StartupUtils;
 
 namespace AspNetCoreStarter
 {

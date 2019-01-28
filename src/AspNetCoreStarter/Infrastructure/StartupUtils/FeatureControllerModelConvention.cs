@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace AspNetCoreStarter
+namespace AspNetCoreStarter.Infrastructure.StartupUtils
 {
     public class FeatureControllerModelConvention : IControllerModelConvention
     {

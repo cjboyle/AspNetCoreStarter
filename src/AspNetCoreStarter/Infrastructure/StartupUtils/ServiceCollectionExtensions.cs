@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetCoreStarter
+namespace AspNetCoreStarter.Infrastructure.StartupUtils
 {
     public static class ServiceCollectionExtensions
     {
