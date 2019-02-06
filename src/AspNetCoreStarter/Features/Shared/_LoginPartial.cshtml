@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AspNetCoreStarter.Domain
+
+@inject SignInManager<ApplicationUser> signInManager
+
+@if (signInManager.IsSignedIn(this.User))
+{
+
+}
+else
+{
+<div class="navbar-item">
+    <div class="buttons has-addons">
+        <span class="button is-primary">
+            <a asp-controller="Account" asp-action="Register">
+                <strong>Register</strong>
+            </a>
+        </span>
+        <span class="button is-warning">
+            <a asp-controller="Account" asp-action="Login">
+                <strong>Login</strong>
+            </a>
+        </span>
+    </div>
+</div>
+}

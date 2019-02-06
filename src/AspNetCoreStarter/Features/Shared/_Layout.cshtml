@@ -8,163 +8,52 @@
     @await RenderSectionAsync("styles", required: false)
 </head>
 <body>
-    @*<section class="hero is-dark is-halfheight">
-            <div class="hero-head">
-                <nav class="navbar">
-                    <div class="container">
-                        <div class="navbar-brand">
-                            <a class="navbar-item" href="../">
-                                <img src="http://bulma.io/images/bulma-type-white.png" alt="Logo">
-                            </a>
-                            <span class="navbar-burger burger" data-target="navbarMenu">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </span>
-                        </div>
-                        <div id="navbarMenu" class="navbar-menu">
-                            <div class="navbar-end">
-                                <span class="navbar-item">
-                                    <a class="button is-white is-outlined" href="#">
-                                        <span class="icon">
-                                            <i class="fa fa-home"></i>
-                                        </span>
-                                        <span>Home</span>
-                                    </a>
-                                </span>
-                                <span class="navbar-item">
-                                    <a class="button is-white is-outlined" href="#">
-                                        <span class="icon">
-                                            <i class="fa fa-superpowers"></i>
-                                        </span>
-                                        <span>Examples</span>
-                                    </a>
-                                </span>
-                                <span class="navbar-item">
-                                    <a class="button is-white is-outlined" href="#">
-                                        <span class="icon">
-                                            <i class="fa fa-book"></i>
-                                        </span>
-                                        <span>Documentation</span>
-                                    </a>
-                                </span>
-                                <span class="navbar-item">
-                                    <a class="button is-white is-outlined" href="https://github.com/dansup/bulma-templates/blob/master/templates/landing.html">
-                                        <span class="icon">
-                                            <i class="fa fa-github"></i>
-                                        </span>
-                                        <span>View Source</span>
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
+    <section class="hero is-fullheight is-light">
+        <div class="hero-head">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" asp-controller="Default" asp-action="Index">
+                        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma Logo" />
+                    </a>
+
+                    <span class="navbar-burger" data-target=".navbar-menu" role="button" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </span>
+                </div>
+
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item" href="~/">Home</a>
+                        <a class="navbar-item" href="~/">About</a>
+                        <a class="navbar-item" href="~/">Contact</a>
+                        <a class="navbar-item" href="~/">Movies</a>
                     </div>
-                </nav>
-            </div>
+
+                    <div class="navbar-end">
+                        @await Html.PartialAsync("./_LoginPartial.cshtml")
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="hero-body">
             @RenderBody()
-        </section>
-
-        <footer class="footer">
-            <div class="card-footer">
-                <div class="card-footer-item">
-                    (c) 2018 - Connor Boyle
-                </div>
-                <div class="card-footer-item">
-                    blah
-                </div>
-            </div>
-        </footer>*@
-    <nav class="navbar has-background-white-bis" role="navigation" aria-label="main navigation">
-
-        <div class="container">
-
-            <div class="navbar-brand">
-
-                <a asp-controller="Posts" asp-action="Index" class="navbar-item">
-
-                    <img src="~/images/admin.Photo" alt="Html.Raw(admin.Username)" width="40" height="40" style="border-radius:50%" />
-
-                    <b>Html.Raw(admin.Username)</b>
-
-                </a>
-
-                <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-
-                    <span aria-hidden="true"></span>
-
-                    <span aria-hidden="true"></span>
-
-                    <span aria-hidden="true"></span>
-
-                </a>
-
-            </div>
-
-            <div class="navbar-menu" id="navMenu">
-
-                <div class="navbar-start">
-
-                </div>
-
-                <div class="navbar-end">
-
-                    <a asp-controller="Posts" asp-action="Index" class="navbar-item">Home</a>
-
-                    <a asp-controller="Tags" asp-action="Index" class="navbar-item">Tags</a>
-
-                    <a asp-controller="About" asp-action="Index" class="navbar-item">About</a>
-
-                    <div class="navbar-item">
-
-                        <form asp-controller="Search" asp-action="Index" method="get">
-
-                            <div class="control has-icons-left">
-
-
-
-                                <input class="input is-rounded is-small" type="text" placeholder="Search" name="text" value="@ViewBag.Text">
-
-                                <span class="icon is-small is-left">
-
-                                    <i class="mdi mdi-magnify mdi-18px"></i>
-
-                                </span>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                    <a asp-controller="Rss" asp-action="Index" class="navbar-item"><span class="icon"><i class="mdi mdi-rss mdi-18px"></i></span></a>
-
-                </div>
-
-            </div>
-
         </div>
 
-    </nav>
+        <footer class="hero-foot">
+            <div class="container has-text-centered">
+                &copy; @DateTime.Now.Year - {Your Name Here}
+                <br />
+                <br />
+                <small>ASP.NET Core   -   Bulma CSS   -   PostgreSQL</small>
+            </div>
+        </footer>
+    </section>
 
-    @RenderBody()
-
-    <footer class="footer">
-
-        <div class="container has-text-centered">
-
-            &copy; @DateTime.Now.Year @*@Html.Raw(admin.Username)*@
-
-            <a asp-controller="Admin" asp-action="Index"><span class="icon"> <i class="mdi mdi-lock mdi-18px"></i></span></a>
-
-            <br />
-
-            <small>Powered by <a href="https://github.com/musicvano/ublog" title="Version @*@AppSettings.Version*@">uBlog</a></small>
-
-        </div>
-
-    </footer>
-
-    @await Html.PartialAsync("./_Styles.cshtml");
+    @await Html.PartialAsync("./_Styles.cshtml")
+    @await Html.PartialAsync("./_Scripts.cshtml")
     @await RenderSectionAsync("scripts", required: false)
 
 </body>

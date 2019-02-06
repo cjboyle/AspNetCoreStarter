@@ -1,0 +1,81 @@
+﻿@model AspNetCoreStarter.Features.Identity.Login.Command
+@*
+    App login page/partial. Could easily be changed to be a dynamic modal in by _Layout.cshtml.
+*@
+@{
+    ViewData["title"] = "Login";
+
+}
+
+@*<div class="columns">*@
+    <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-centered">Login</h3>
+        <p class="subtitle has-text-centered">Please login to proceed.</p>
+        <div class="box">
+            <figure class="avatar has-text-centered">
+                <img src="https://placehold.it/128x128">
+            </figure>
+            <form asp-controller="Account" asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="has-text-danger is-danger"></div>
+
+                <div class="field">
+                    <div class="control">
+                        <input asp-for="UserName" class="input" placeholder="@Html.DisplayNameFor(m => m.UserName)" autofocus />
+                        <span asp-validation-for="UserName" class="has-text-danger is-danger"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input asp-for="Password" class="input" placeholder="@Html.DisplayNameFor(m => m.Password)" />
+                        <span asp-validation-for="Password" class="has-text-danger is-danger"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label asp-for="RememberMe" class="checkbox">
+                        <input asp-for="RememberMe" class="checkbox" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+
+                <input type="submit" class="button is-primary is-block is-fullwidth" value="Login">
+            </form>
+        </div>
+        <p class="has-text-centered">
+            <a asp-action="Register">Register</a> &nbsp;·&nbsp;
+            <a asp-action="ForgotPassword">Forgot Password</a>
+        </p>
+    </div>
+@*</div>*@
+
+<style>
+    .box {
+        margin-top: 5rem;
+    }
+
+    .avatar {
+        margin-top: -70px;
+        padding-bottom: 20px;
+    }
+
+        .avatar img {
+            padding: 5px;
+            background: #fff;
+            border-radius: 50%;
+            -webkit-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+            box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+        }
+
+    input {
+        font-weight: 300;
+    }
+
+    p {
+        font-weight: 700;
+    }
+
+        p.subtitle {
+            padding-top: 1rem;
+        }
+</style>
