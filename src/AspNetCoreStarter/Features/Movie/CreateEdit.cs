@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreStarter.Features.Movie
 {
-    public class CreateEdit
+    public static class CreateEdit
     {
         /// <summary>
         /// Represents a Create/Edit query view model for movie objects

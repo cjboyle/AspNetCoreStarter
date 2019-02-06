@@ -13,7 +13,7 @@ namespace AspNetCoreStarter.Domain
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
-        public int Year { get; set; }
+        public DateTime ReleaseDate { get; set; }
         public int Runtime { get; set; }
         public double ImdbRating { get; set; }
         public int RottenTomatoRating { get; set; }

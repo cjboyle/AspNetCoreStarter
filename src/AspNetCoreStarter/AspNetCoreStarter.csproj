@@ -5,6 +5,17 @@
     <UserSecretsId>cf6ff8fe-36a8-4abe-bea0-d845117f96ab</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\**" />
+    <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
+    <None Remove="ClientApp\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
@@ -15,18 +26,67 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\components\" />
-    <Folder Include="Features\Identity\" />
     <Folder Include="Infrastructure\ValidationAttributes\" />
+    <Folder Include="wwwroot\assets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\dist\bulma\sass\base\generic.sass" />
+    <None Include="wwwroot\dist\bulma\sass\base\helpers.sass" />
+    <None Include="wwwroot\dist\bulma\sass\base\minireset.sass" />
+    <None Include="wwwroot\dist\bulma\sass\base\_all.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\breadcrumb.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\card.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\dropdown.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\level.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\list.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\media.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\menu.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\message.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\modal.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\navbar.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\pagination.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\panel.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\tabs.sass" />
+    <None Include="wwwroot\dist\bulma\sass\components\_all.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\box.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\button.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\container.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\content.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\form.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\icon.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\image.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\notification.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\other.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\progress.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\table.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\tag.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\title.sass" />
+    <None Include="wwwroot\dist\bulma\sass\elements\_all.sass" />
+    <None Include="wwwroot\dist\bulma\sass\grid\columns.sass" />
+    <None Include="wwwroot\dist\bulma\sass\grid\tiles.sass" />
+    <None Include="wwwroot\dist\bulma\sass\grid\_all.sass" />
+    <None Include="wwwroot\dist\bulma\sass\layout\footer.sass" />
+    <None Include="wwwroot\dist\bulma\sass\layout\hero.sass" />
+    <None Include="wwwroot\dist\bulma\sass\layout\section.sass" />
+    <None Include="wwwroot\dist\bulma\sass\layout\_all.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\animations.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\controls.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\derived-variables.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\functions.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\initial-variables.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\mixins.sass" />
+    <None Include="wwwroot\dist\bulma\sass\utilities\_all.sass" />
   </ItemGroup>
 
 
   <!-- ClientApp and npm asset management -->
 
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <ClientAppFolder>ClientApp</ClientAppFolder>
   </PropertyGroup>
 
@@ -41,7 +101,7 @@
     <Exec WorkingDirectory="$(ClientAppFolder)" Command="npm run build-prod" />
     <Exec WorkingDirectory="$(ClientAppFolder)" Command="npm run build-dev" />
 
-    <!-- Include the new files in the publish output -->
+    --><!-- Include the new files in the publish output --><!--
     <ItemGroup>
       <DistFiles Include="$(ClientAppFolder)\..\wwwroot\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
@@ -49,6 +109,6 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>
     </ItemGroup>
-  </Target>
+  </Target>-->
 
 </Project>

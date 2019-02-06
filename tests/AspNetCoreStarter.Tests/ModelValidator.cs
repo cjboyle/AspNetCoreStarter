@@ -8,7 +8,8 @@ namespace AspNetCoreStarter.Tests
     public static class ModelValidator
     {
         /// <summary>
-        /// Validates the model and returns the list of results
+        /// Validates the model and returns the list of results.
+        /// Does validation on annotated properties and <see cref="IValidatableObject"/> implementations.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
