@@ -55,9 +55,11 @@
 
                 <div class="field is-horizontal">
                     <label asp-for="ConfirmPassword" class="label field-label"></label>
-                    <div class="control field-body">
-                        <input asp-for="ConfirmPassword" class="input" />
-                        <span asp-validation-for="ConfirmPassword" class="has-text-danger"></span>
+                    <div class="field-body">
+                        <div class="field control">
+                            <input asp-for="ConfirmPassword" class="input" />
+                            <span asp-validation-for="ConfirmPassword" class="has-text-danger"></span>
+                        </div>
                     </div>
                 </div>
 

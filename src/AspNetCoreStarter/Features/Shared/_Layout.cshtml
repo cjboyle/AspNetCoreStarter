@@ -8,36 +8,34 @@
     @await RenderSectionAsync("styles", required: false)
 </head>
 <body>
-    <section class="hero is-fullheight is-light">
-        <div class="hero-head">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item" asp-controller="Default" asp-action="Index">
-                        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma Logo" />
-                    </a>
+    <nav class="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" asp-controller="Default" asp-action="Index">
+                <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma Logo" />
+            </a>
 
-                    <span class="navbar-burger" data-target=".navbar-menu" role="button" aria-label="menu" aria-expanded="false">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </span>
-                </div>
-
-                <div class="navbar-menu">
-                    <div class="navbar-start">
-                        <a class="navbar-item" href="~/">Home</a>
-                        <a class="navbar-item" href="~/">About</a>
-                        <a class="navbar-item" href="~/">Contact</a>
-                        <a class="navbar-item" href="~/">Movies</a>
-                    </div>
-
-                    <div class="navbar-end">
-                        @await Html.PartialAsync("./_LoginPartial.cshtml")
-                    </div>
-                </div>
-            </nav>
+            <span class="navbar-burger" data-target=".navbar-menu" role="button" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </span>
         </div>
 
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="~/">Home</a>
+                <a class="navbar-item" href="~/">About</a>
+                <a class="navbar-item" href="~/">Contact</a>
+                <a class="navbar-item" href="~/">Movies</a>
+            </div>
+
+            <div class="navbar-end">
+                @await Html.PartialAsync("./_LoginPartial.cshtml")
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero is-fullheight-with-navbar is-light">
         <div class="hero-body">
             @RenderBody()
         </div>
@@ -52,7 +50,6 @@
         </footer>
     </section>
 
-    @await Html.PartialAsync("./_Styles.cshtml")
     @await Html.PartialAsync("./_Scripts.cshtml")
     @await RenderSectionAsync("scripts", required: false)
 
