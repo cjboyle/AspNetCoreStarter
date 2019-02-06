@@ -1,4 +1,5 @@
 ﻿using AspNetCoreStarter.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreStarter.Infrastructure
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Movie> Movies { get; set; }

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using System.IO;
 using AutoMapper;
 using AspNetCoreStarter.Infrastructure.StartupUtils;
+using AspNetCoreStarter.Domain;
 
 namespace AspNetCoreStarter
 {
@@ -41,7 +42,7 @@ namespace AspNetCoreStarter
             services.AddCustomMvc(target: CompatibilityVersion.Version_2_2);
 
             // Setup database access with Entity Framework
-            services.AddCustomEntityFramework<ApplicationDbContext>(IsTestEnvironment);
+            services.AddCustomEntityFrameworkWithIdentity<ApplicationDbContext, ApplicationUser>(IsTestEnvironment);
 
             // Enable MediatR request handler pattern
             services.AddMediatR(typeof(Startup));
@@ -51,14 +52,7 @@ namespace AspNetCoreStarter
             Mapper.Initialize(config => config.AddProfiles(typeof(Startup)));
             Mapper.AssertConfigurationIsValid();
 
-            // Services for securing the application (uncomment as needed)
-            // See example with separate partial class at https://github.com/samueleresca/Blog.TokenAuthGettingStarted
-            //services.AddAuthentication()
-            //    .AddJwtBearer()
-            //    .AddGoogle()
-            //    .AddMicrosoftAccount();
-            //services.AddIdentity<>();
-            //services.AddAuthorization();
+            // Enable use of anti-forgery tokens
             services.AddAntiforgery();
 
             // Setup a logging service as needed
@@ -78,13 +72,6 @@ namespace AspNetCoreStarter
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-                {
-                    ProjectPath = Path.Combine(Directory.GetCurrentDirectory(), "ClientApp"),
-                    ConfigFile = "webpack.config.dev.js",
-                    HotModuleReplacement = true,
-                    //ReactHotModuleReplacement = true,
-                });
             }
             else
             {
@@ -104,7 +91,7 @@ namespace AspNetCoreStarter
                 );
             });
 
-            //app.UseAuthentication(); // Uncomment if setting up authentication
+            app.UseAuthentication();
         }
 
         /// <summary>
