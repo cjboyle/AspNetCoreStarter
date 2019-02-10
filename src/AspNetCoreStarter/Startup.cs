@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MediatR;
 using AspNetCoreStarter.Infrastructure;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using System.IO;
 using AutoMapper;
 using AspNetCoreStarter.Infrastructure.StartupUtils;
@@ -39,7 +38,7 @@ namespace AspNetCoreStarter
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup custom MVC options
-            services.AddCustomMvc(target: CompatibilityVersion.Version_2_2);
+            services.AddFeatureSlicedMvc(target: CompatibilityVersion.Version_2_2);
 
             // Setup database access with Entity Framework
             services.AddCustomEntityFrameworkWithIdentity<ApplicationDbContext, ApplicationUser>(IsTestEnvironment);
@@ -72,6 +71,7 @@ namespace AspNetCoreStarter
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
