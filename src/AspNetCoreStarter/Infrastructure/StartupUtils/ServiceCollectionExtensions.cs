@@ -19,7 +19,7 @@ namespace AspNetCoreStarter.Infrastructure.StartupUtils
         /// <param name="services"></param>
         /// <param name="target">The ASP.NET Core compatibility version for the application.</param>
         /// <returns></returns>
-        public static IServiceCollection AddCustomMvc(this IServiceCollection services, CompatibilityVersion target)
+        public static IServiceCollection AddFeatureSlicedMvc(this IServiceCollection services, CompatibilityVersion target = CompatibilityVersion.Latest)
         {
             services.AddMvc(mvcOptions =>
                 {
@@ -37,6 +37,11 @@ namespace AspNetCoreStarter.Infrastructure.StartupUtils
                     razorOptions.ViewLocationFormats.Add("/Features/{3}/{1}/{0}.cshtml"); // e.g.
                     razorOptions.ViewLocationFormats.Add("/Features/Shared/{0}.cshtml"); // e.g. Features/Shared/Error.cshtml
                     razorOptions.ViewLocationExpanders.Add(new FeatureViewLocationExpander());
+                })
+                .AddViewOptions(viewOptions =>
+                {
+                    viewOptions.HtmlHelperOptions.ClientValidationEnabled = true;
+                    viewOptions.AllowRenderingMaxLengthAttribute = true;
                 })
                 .SetCompatibilityVersion(target);
 

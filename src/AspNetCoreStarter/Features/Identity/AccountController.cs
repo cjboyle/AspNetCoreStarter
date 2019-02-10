@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AspNetCoreStarter.Infrastructure.ValidationAttributes;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -104,18 +105,29 @@ namespace AspNetCoreStarter.Features.Identity
             throw new NotImplementedException();
         }
 
-        [HttpGet, AllowAnonymous]
-        public async Task<JsonResult> VerifyUniqueUsername(string Username)
+        [AcceptVerbs("get", "post", Route = "[controller]/IsUniqueUsername/{username?}")]
+        [IgnoreAntiforgeryToken, AllowAnonymous]
+        public JsonResult IsUniqueUsername([UniqueUsername] string username)
         {
-            var parsedRequest = new VerifyUniqueAccount.UsernameQuery { Username = Username };
-            return Json(false);
-            return Json(await _mediator.Send(parsedRequest));
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                // Let other validators handle it
+                return Json(true);
+            }
+            return Json(ModelState.IsValid);
         }
 
-        [HttpGet, AllowAnonymous]
-        public async Task<JsonResult> VerifyUniqueEmail(VerifyUniqueAccount.EmailQuery request)
+        [AcceptVerbs("get", "post", Route = "[controller]/IsUniqueEmail/{emailAddress?}")]
+        [IgnoreAntiforgeryToken, AllowAnonymous]
+        public JsonResult IsUniqueEmail([UniqueEmail] string emailAddress)
         {
-            return Json(await _mediator.Send(request));
+            if (string.IsNullOrWhiteSpace(emailAddress))
+            {
+                // Let other validators handle it
+                return Json(true);
+            }
+
+            return Json(ModelState.IsValid);
         }
     }
 }

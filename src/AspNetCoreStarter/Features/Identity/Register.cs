@@ -1,5 +1,6 @@
 ﻿using AspNetCoreStarter.Domain;
 using AspNetCoreStarter.Infrastructure;
+using AspNetCoreStarter.Infrastructure.ValidationAttributes;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,14 +32,17 @@ namespace AspNetCoreStarter.Features.Identity
         public class Command : IRequest<bool>
         {
             [Required]
-            [Remote(nameof(AccountController.VerifyUniqueEmail), "Account", ErrorMessage = "Sorry, that email is already linked to an account.")]
+            [Remote(nameof(AccountController.IsUniqueEmail), "Account", ErrorMessage = "Sorry, that email is already linked to an account.", HttpMethod = "Get")]
             [EmailAddress(ErrorMessage = "Must be a valid email address.")]
-            public string Email { get; set; }
+            [UniqueEmail(ErrorMessage = "Sorry, that email is already linked to an account.")]
+            [Display(Name ="Email", Prompt = "example@email.com")]
+            public string EmailAddress { get; set; }
 
             [Required]
-            [Remote(nameof(AccountController.VerifyUniqueUsername), "Account", ErrorMessage = "Sorry, that username is taken. Please choose another.")]
+            [Remote(nameof(AccountController.IsUniqueUsername), "Account", ErrorMessage = "Sorry, that username is taken. Please choose another.", HttpMethod = "Get")]
             [MinLength(3, ErrorMessage = "{0} must be at least {1} characters long.")]
             [MaxLength(30, ErrorMessage = "{0} can be at most {1} characters long.")]
+            [UniqueUsername(ErrorMessage = "Sorry, that username is taken. Please choose another.")]
             public string Username { get; set; }
 
             [Required]
@@ -53,12 +57,19 @@ namespace AspNetCoreStarter.Features.Identity
             [Display(Name = "Confirm Password")]
             public string ConfirmPassword { get; set; }
 
-            public TimeZoneInfo TimeZoneSelection { get; set; }
+            public TimeZoneInfo TimeZone
+            {
+                get
+                {
+                    try { return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneSelection); }
+                    catch { }
+                    return null;
+                }
+            }
 
-            [Display(Name = "Timezone")]
-            public IEnumerable<SelectListItem> TimeZoneOptions => TimeZoneInfo.GetSystemTimeZones()
-                .Select(tz => new SelectListItem(tz.Id, tz.StandardName, (TimeZoneSelection?.Id ?? "") == tz.Id));
-            //public SelectList TimeZoneDropDown => new SelectList(TimeZoneInfo.GetSystemTimeZones(), TimeZoneSelection);
+            [Required]
+            [Display(Name = "Time Zone")]
+            public string TimeZoneSelection { get; set; }
         }
 
         public class CommandHandler : IRequestHandler<Command, bool>

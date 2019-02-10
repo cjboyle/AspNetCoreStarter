@@ -63,9 +63,24 @@ namespace AspNetCoreStarter.Infrastructure
             // Customize the ORM options
         }
 
-        internal void Seed()
+        internal void Seed(Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager, Microsoft.AspNetCore.Identity.RoleManager<Microsoft.AspNetCore.Identity.IdentityRole> roleManager)
         {
-            throw new NotImplementedException();
+            if (!Users.Any(u => u.UserName == "test123"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "test123",
+                    NormalizedUserName = "TEST123",
+                    Email = "test123@example.com",
+                    NormalizedEmail = "TEST123@EXAMPLE.COM",
+                    EmailConfirmed = true
+                };
+
+                user.PasswordHash = userManager.PasswordHasher.HashPassword(user, "Pa$$w0rd");
+
+                Users.Add(user);
+                SaveChanges();
+            }
         }
     }
 }

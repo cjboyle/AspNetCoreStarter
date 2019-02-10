@@ -4,26 +4,26 @@
 *@
 @{
     ViewData["title"] = "Register";
-
-    var items = TimeZoneInfo.GetSystemTimeZones()
-                .Select(tz => new SelectListItem(tz.DisplayName, tz.BaseUtcOffset.ToString(), (Model?.TimeZoneSelection?.Id ?? "") == tz.Id));
+        
+    var tzItems = TimeZoneInfo.GetSystemTimeZones()
+                .Select(tz => new SelectListItem(tz.DisplayName, tz.BaseUtcOffset.ToString(), (Model?.TimeZoneSelection ?? "") == tz.Id));
 }
 
 <div class="container">
     <div class="column">
         <div class="box">
-            <form asp-controller="Account" asp-action="Register">
+            <form asp-controller="Account" asp-action="Register" asp-antiforgery="true">
                 <div asp-validation-summary="ModelOnly" class="has-text-danger is-danger"></div>
 
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label asp-for="Email" class="label"></label>
+                        <label asp-for="EmailAddress" class="label"></label>
                     </div>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input asp-for="Email" class="input" />
-                                <span asp-validation-for="Email" class="has-text-danger"></span>
+                                <input asp-for="EmailAddress" class="input" />
+                                <span asp-validation-for="EmailAddress" class="has-text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -64,16 +64,17 @@
                 </div>
 
                 <div class="field is-horizontal">
-                    <label asp-for="TimeZoneOptions" class="label field-label"></label>
+                    <label asp-for="TimeZoneSelection" class="label field-label"></label>
                     <div class="control is-expanded field-body">
                         <div class="select is-fullwidth">
-                            <select asp-for="TimeZoneSelection" asp-items="items">
+                            <select asp-for="TimeZoneSelection" asp-items="tzItems" required>
                                 <option disabled selected>...</option>
                             </select>
+                            <span asp-validation-for="TimeZoneSelection" class="has-text-danger"></span>
                         </div>
                     </div>
                 </div>
-
+                <br />
                 <input type="submit" class="button is-primary is-block is-fullwidth" value="Register">
             </form>
         </div>
