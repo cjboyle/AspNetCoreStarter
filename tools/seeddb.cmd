@@ -1,0 +1,1 @@
+cd ../src/AspNetCoreStarter/ && dotnet run -- seeddb exit

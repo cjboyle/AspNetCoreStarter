@@ -1,0 +1,1 @@
+cd ../tests/AspNetCoreStarter.Tests/ && run test
