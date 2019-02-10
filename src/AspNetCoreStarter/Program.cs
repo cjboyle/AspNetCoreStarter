@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreStarter.Domain;
 using AspNetCoreStarter.Infrastructure;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -79,8 +81,8 @@ namespace AspNetCoreStarter
             using (var scope = services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                // Uncomment for access to Identity services
-                //var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 //var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 if (args.Contains("dropdb") || args.Contains("resetdb"))
@@ -96,8 +98,7 @@ namespace AspNetCoreStarter
                 if (args.Contains("seeddb"))
                 {
                     Console.WriteLine("Seeding the database");
-                    db.Seed();
-                    //db.seed(userManager, roleManager);
+                    db.Seed(userManager, null);
                 }
             }
         }
