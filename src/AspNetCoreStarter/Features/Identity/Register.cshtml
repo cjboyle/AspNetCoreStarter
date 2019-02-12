@@ -4,7 +4,7 @@
 *@
 @{
     ViewData["title"] = "Register";
-        
+
     var tzItems = TimeZoneInfo.GetSystemTimeZones()
                 .Select(tz => new SelectListItem(tz.DisplayName, tz.BaseUtcOffset.ToString(), (Model?.TimeZoneSelection ?? "") == tz.Id));
 }
@@ -67,8 +67,8 @@
                     <label asp-for="TimeZoneSelection" class="label field-label"></label>
                     <div class="control is-expanded field-body">
                         <div class="select is-fullwidth">
-                            <select asp-for="TimeZoneSelection" asp-items="tzItems" required>
-                                <option disabled selected>...</option>
+                            <select asp-for="TimeZoneSelection" asp-items="tzItems">
+                                <option disabled selected>Please select...</option>
                             </select>
                             <span asp-validation-for="TimeZoneSelection" class="has-text-danger"></span>
                         </div>
