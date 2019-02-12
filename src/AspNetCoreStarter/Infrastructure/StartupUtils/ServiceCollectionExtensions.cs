@@ -117,5 +117,10 @@ namespace AspNetCoreStarter.Infrastructure.StartupUtils
 
             return services;
         }
+
+
+        public static IServiceCollection AddStartupTask<T>(this IServiceCollection services)
+            where T : class, IStartupTask
+            => services.AddTransient<IStartupTask, T>();
     }
 }

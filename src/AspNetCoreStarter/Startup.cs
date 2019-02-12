@@ -16,6 +16,7 @@ using System.IO;
 using AutoMapper;
 using AspNetCoreStarter.Infrastructure.StartupUtils;
 using AspNetCoreStarter.Domain;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AspNetCoreStarter
 {
@@ -59,6 +60,10 @@ namespace AspNetCoreStarter
 
             // Setup websockets/SignalR
             //services.AddSignalR()
+
+            // Speed up initial requests by warming up all services
+            services.AddStartupTask<WarmUpServicesStartupTask>()
+                .TryAddSingleton(services);
         }
 
         /// <summary>
