@@ -18,7 +18,10 @@ namespace AspNetCoreStarter.Tests
     {
         private static readonly IHostingEnvironment _host;
         private static readonly IConfiguration _configuration;
+        private static readonly IServiceProvider _rootContainer;
         private static readonly IServiceScopeFactory _scopeFactory;
+        // Use Respawn checkpoints to store database clean states if testing with a persistent/production-like database
+        //private static readonly Checkpoint _checkpoint;
 
         static SliceFixture()
         {
@@ -31,8 +34,9 @@ namespace AspNetCoreStarter.Tests
             var services = new ServiceCollection();
             startup.ConfigureServices(services);
 
-            var provider = services.BuildServiceProvider();
-            _scopeFactory = provider.GetService<IServiceScopeFactory>();
+            _rootContainer = services.BuildServiceProvider();
+            _scopeFactory = _rootContainer.GetService<IServiceScopeFactory>();
+            //_checkpoint = new Checkpoint();
         }
 
         public static async Task ExecuteScopeAsync(Func<IServiceProvider, Task> action)
