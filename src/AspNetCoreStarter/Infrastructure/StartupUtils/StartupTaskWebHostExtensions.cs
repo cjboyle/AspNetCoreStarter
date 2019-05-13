@@ -10,16 +10,18 @@ namespace AspNetCoreStarter.Infrastructure.StartupUtils
 {
     public static class StartupTaskWebHostExtensions
     {
-        public static async Task RunWithTasksAsync(this IWebHost webHost, CancellationToken cancellationToken = default)
+        public static async Task RunWithTasksAsync(this IWebHost webHost)
         {
-            var tasks = webHost.Services.GetServices<IStartupTask>();
+            var startupTasks = webHost.Services.GetServices<IStartupTask>();
+            var tasks = new List<Task>();
 
-            foreach (var task in tasks)
+            foreach (var st in startupTasks)
             {
-                await task.ExecuteAsync(cancellationToken);
+                tasks.Add(Task.Run(() => st.ExecuteAsync(default)));
             }
 
-            await webHost.RunAsync(cancellationToken);
+            Task.WaitAll(tasks.ToArray());
+            await webHost.RunAsync();
         }
     }
 }

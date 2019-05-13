@@ -20,18 +20,26 @@ namespace AspNetCoreStarter.Infrastructure.StartupUtils
 
         public Task ExecuteAsync(CancellationToken cancellationToken)
         {
+            List<string> traces = new List<string>();
             using (var scope = _provider.CreateScope())
             {
-                foreach (var singleton in GetServices(_services))
+                foreach (var serviceType in GetServices(_services))
                 {
-                    scope.ServiceProvider.GetServices(singleton);
+                    try
+                    {
+                        scope.ServiceProvider.GetServices(serviceType);
+                    }
+                    catch (Exception e)
+                    {
+                        traces.Add(e.Message);
+                    }
                 }
             }
 
             return Task.CompletedTask;
         }
 
-        static IEnumerable<Type> GetServices(IServiceCollection services)
+        private static IEnumerable<Type> GetServices(IServiceCollection services)
         {
             return services
                 .Where(desc => desc.ImplementationType != typeof(WarmUpServicesStartupTask)

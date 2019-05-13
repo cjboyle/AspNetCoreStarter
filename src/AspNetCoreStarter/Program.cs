@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreStarter.Domain;
 using AspNetCoreStarter.Infrastructure;
+using AspNetCoreStarter.Infrastructure.StartupUtils;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,9 @@ namespace AspNetCoreStarter
         {
             var host = CreateWebHostBuilder(args).Build();
             ProcessArgs(args, host);
-            host.Run();
+            host.RunWithTasksAsync()
+                .GetAwaiter()
+                .GetResult();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
